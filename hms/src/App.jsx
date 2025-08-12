@@ -1,9 +1,22 @@
-import React from 'react'
+import React, { useState } from 'react';
+import Login from './pages/Login';
+import PatientForm from './components/PatientForm';
+import AppointmentForm from './components/AppointmentForm';
 
 const App = () => {
-  return (
-    <div className='text-red-700'>App</div>
-  )
-}
+  const [currentPage, setCurrentPage] = useState('login');
 
-export default App
+  const handleLogin = (role) => {
+    setCurrentPage(role === 'doctor' ? 'appointment' : 'patient');
+  };
+
+  return (
+    <div>
+      {currentPage === 'login' && <Login onLogin={handleLogin} />}
+      {currentPage === 'patient' && <PatientForm />}
+      {currentPage === 'appointment' && <AppointmentForm />}
+    </div>
+  );
+};
+
+export default App;
